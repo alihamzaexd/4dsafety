@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <script src="javascript/indexPageJavascript.js"> </script>
 <html>
+<!-- created by Ali Hamza -->
 <?php
 session_start();
 
