@@ -1,0 +1,66 @@
+<ul class="breadcrumb" align="right"; style="background:rgba(255, 255, 255, .0);!important ">
+    <li>
+	  <a onClick="loadAdminDetailsContent()">
+	    <i class="fa fa-home" aria-hidden="true"></i> Home
+	  </a>
+	</li>
+	<li>
+	  <a onClick="loadAdminAssetsContent()">
+	    Assets
+	  </a>
+	</li>
+	<li>
+	  <a onClick="loadAddAssetForm()" style="color:grey;">
+	    <i class="fa fa-plus" aria-hidden="true"></i> Add asset
+	  </a>
+	</li>
+</ul>
+<!-- add Asset form -->
+<div id="signupForm" class="admin_content col-md-offset-1 col-md-10">    
+	<div class="panel panel-default">
+	  	<div class="panel-heading">
+	    	<h4>Add Asset</h4>
+	  	</div>
+		<div class="panel-body">
+		    <form role="form" class="simple_form new_account" id="addAssetForm" action="" accept-charset="UTF-8" method="post">
+		      <input name="utf8" type="hidden" value="&#x2713;" />
+		      	<div class="form-group col-md-6">
+		        	<label class="string required" for="assetName"> * Asset Name</label>
+		        	<input autofocus="autofocus" class="form-control" required="required" type="text" name="assetName" id="assetName" />
+		      	</div>
+				<div class="form-group col-md-6">
+		        	<label class="string required" for="assetCode"> * Asset Code</label>
+		        	<input autofocus="autofocus" class="form-control" required="required" type="text" name="assetCode" id="assetCode" />
+		      	</div>
+				<div class="form-group col-md-6">
+		        	<label class="string required" for="assetStatus">  Asset Status</label>
+		        	<input autofocus="autofocus" class="form-control" type="text" name="assetStatus" id="assetStatus" />
+		      	</div>
+				<div class="form-group col-md-6">
+		        	<label class="string required" for="assetMaintainanceType">  Maintainance Type</label>
+		        	<input autofocus="autofocus" class="form-control"  type="text" name="assetMaintainanceType" id="assetMaintainanceType" />
+		      	</div>
+				<div class="form-group col-md-6">
+		        	<label class="string required" for="assetRepiredOn">  Repaired On</label>
+		        	<input autofocus="autofocus" class="form-control" type="date" name="assetRepiredOn" id="assetRepiredOn" />
+		      	</div>
+				<div class="form-group col-md-6">
+		        	<label class="string required" for="assetNextMaintainance"> Next Maintainance </label>
+		        	<input autofocus="autofocus" class="form-control"  type="date" name="assetNextMaintainance" id="assetNextMaintainance" />
+		      	</div>
+				<div class="form-group col-md-6">
+		        	<label class="string required" for="assetPurchaseDate"> Purchase Date</label>
+		        	<input autofocus="autofocus" class="form-control"  type="date" name="assetPurchaseDate" id="assetPurchaseDate" />
+		      	</div>
+				<div class="form-group col-md-12">
+		        	<label class="string required" for="assetComments"> Comments </label>
+					<textarea class="form-control" rows="3" id="assetComments" name="assetComments"></textarea>
+		      	</div>
+				<div class="form-group col-md-6">
+		      	    <input type="submit" name="addAsset" value="Add Asset" class="btn btn-primary" />
+                </div>				
+			</form>  
+		</div>
+	</div>
+
+</div>

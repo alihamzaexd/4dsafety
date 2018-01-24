@@ -1,0 +1,53 @@
+<ul class="breadcrumb" align="right"; style="background:rgba(255, 255, 255, .0);!important ">
+    <li>
+	  <a onClick="loadAdminDetailsContent()">
+	    <i class="fa fa-home" aria-hidden="true"></i> Home
+	  </a>
+	</li>
+	<li>
+	  <a onClick="loadAdminCompaniesContent()">
+	    <i class="fa fa-building" aria-hidden="true"></i> Companies
+	  </a>
+	</li>
+	<li>
+	  <a onClick="loadAddCompanyForm()" style="color:grey;">
+	    <i class="fa fa-plus" aria-hidden="true"></i> Add company
+	  </a>
+	</li>
+</ul>
+
+<!-- add location form -->
+<div id="signupForm" class="admin_content col-md-offset-1 col-md-10">    
+	<div class="panel panel-default">
+	  	<div class="panel-heading">
+	    	<h4>Create Company</h4>
+	  	</div>
+		<div class="panel-body">
+		    <form role="form" class="simple_form new_account" id="addCompanyForm" action="" accept-charset="UTF-8" method="post">
+		    <input name="utf8" type="hidden" value="&#x2713;" />
+		      	<div class="form-group">
+		        	<label class="string required" for="companyName"> * Company Name</label>
+		        	<input autofocus="autofocus" class="form-control" required="required" type="text" name="companyName" id="companyName" />
+		      	</div>
+				<div class="form-group">
+		        	<label class="string required" for="companyStatus">Company Status</label>
+		        	<select class="form-control" id="companyStatus" name="companyStatus" style="background-color:#f7f7f9;">
+						<option value="" selected disabled> select status</option>
+						<option value="1">Enabled</option>
+						<option value="0">Disabled</option>
+					</select>
+		      	</div>
+				<div class="form-group">
+		        	<label class="string required" for="companySector">Sector</label>
+		        	<select class="form-control" id="companySector" name="companySector" style="background-color:#f7f7f9;">
+						<option value="" selected disabled> select sector</option>
+						<option value="government">Government</option>
+						<option value="private">Private</option>
+					</select>
+		      	</div>
+		      	<input type="submit" name="addCompany" value="Add Company" class="btn btn-primary" /> 
+			</form>  
+		</div>
+	</div>
+
+</div>

@@ -1,0 +1,13 @@
+#modal_header{
+background:linear-gradient(90deg, #82A8E3, #3F6BB0) !important;
+}
+.modal-body{
+height: 450px;
+overflow: auto;
+}
+.modal-dialog{
+width:70% !important;
+}
+.modal{
+margin-top:35px !important;
+}
