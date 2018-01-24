@@ -7,14 +7,25 @@ $adminActionManager = new AdminActionManager();
 <div class="admin_content col-md-offset-1 col-md-10">
 <!-- overridden styling of the lable -->
 <script type='text/javascript'>
-	function exportCSVSSLR(value)  // function that acts when the value of dropdown is changed
+    // Javascript function to call PHP scripts to download selected report as excel
+	function exportCSVSSLR(value)  
 	{ 
 	    var url = "adminFiles/reports/excelExportScriptSSLR.php?id="+value;
 	    window.open(url,"_self");
     }	
-	function exportCSVSLP(value)  // function that acts when the value of dropdown is changed
+	function exportCSVSLP(value)  
 	{ 
 	    var url = "adminFiles/reports/excelExportScriptSLP.php?id="+value;
+	    window.open(url,"_self");
+    }
+    function exportCSVSLPA(value)  
+	{ 
+	    var url = "adminFiles/reports/excelExportScriptSLPA.php?id="+value;
+	    window.open(url,"_self");
+    }	
+	function exportCSVSTJ(value)  
+	{ 
+	    var url = "adminFiles/reports/excelExportScriptSTJ.php?id="+value;
 	    window.open(url,"_self");
     }	
 </script>

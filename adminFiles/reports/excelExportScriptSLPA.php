@@ -84,9 +84,9 @@ $objPHPExcel->getActiveSheet()->getDefaultColumnDimension()->setWidth(20);
 $reportId;
 $reportId = $_GET['id'];
 //========================================== SLP Report Export ================================================//
-$objPHPExcel->getActiveSheet()->getCell('B2')->setValue('Safety Leadership Profile');    
-$objPHPExcel->getActiveSheet()->getStyle('A6:AD6')->applyFromArray($styleArray);
-$objPHPExcel->getActiveSheet()->getStyle('A6:AD6')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+$objPHPExcel->getActiveSheet()->getCell('B2')->setValue('Safety Leadership Practices Assessment');    
+$objPHPExcel->getActiveSheet()->getStyle('A6:AE6')->applyFromArray($styleArray);
+$objPHPExcel->getActiveSheet()->getStyle('A6:AE6')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 $objPHPExcel->getActiveSheet()->SetCellValue('A6','Team Name');
 $objPHPExcel->getActiveSheet()->SetCellValue('B6','Company Name');
 $objPHPExcel->getActiveSheet()->SetCellValue('C6','Team Leader');
@@ -117,27 +117,28 @@ $objPHPExcel->getActiveSheet()->SetCellValue('AA6','Question 17');
 $objPHPExcel->getActiveSheet()->SetCellValue('AB6','Question 18');
 $objPHPExcel->getActiveSheet()->SetCellValue('AC6','Question 19');
 $objPHPExcel->getActiveSheet()->SetCellValue('AD6','Question 20');
+$objPHPExcel->getActiveSheet()->SetCellValue('AE6','Question 21');
 
 // query to fetch team name 
-$teamNameQuery = "SELECT team_name from TEAM  where team_id IN (Select team_id from SLP where slp_id = '{$reportId}')";
+$teamNameQuery = "SELECT team_name from TEAM  where team_id IN (Select team_id from SLPA where slpa_id = '{$reportId}')";
 $teamNameResult = pg_query($teamNameQuery) or die ($teamNameQuery);
 $teamNameRow=pg_fetch_row($teamNameResult);
 $teamName = $teamNameRow[0];
 
 // query to fetch company name 
-$companyNameQuery = "SELECT company_name from COMPANY  where company_id IN (Select company_id from SLP where slp_id = '{$reportId}')";
+$companyNameQuery = "SELECT company_name from COMPANY  where company_id IN (Select company_id from SLPA where slpa_id = '{$reportId}')";
 $companyNameResult = pg_query($companyNameQuery) or die ($companyNameQuery);
 $companyNameRow=pg_fetch_row($companyNameResult);
 $companyName = $companyNameRow[0];
 
 // query to fetch team leader name 
-$teamLeaderNameQuery = "SELECT person_firstname,person_lastname from PERSON  where person_id IN (Select person_id from SLP where slp_id = '{$reportId}')";
+$teamLeaderNameQuery = "SELECT person_firstname,person_lastname from PERSON  where person_id IN (Select person_id from SLPA where slpa_id = '{$reportId}')";
 $teamLeaderNameResult = pg_query($teamLeaderNameQuery) or die ($teamLeaderNameQuery);
 $teamLeaderNameRow=pg_fetch_row($teamLeaderNameResult);
 $teamLeaderName = $teamLeaderNameRow[0]." ".$teamLeaderNameRow[1];
 
 // report data retrival from databse.
-$query = "Select * from SLP where slp_id = '{$reportId}';";
+$query = "Select * from SLPA where slpa_id = '{$reportId}';";
 $export = pg_query($query) or die ($query);
 
 // pointer of location/cell to write data
@@ -149,11 +150,11 @@ while($row=pg_fetch_row($export))
 	$objPHPExcel->getActiveSheet()->SetCellValue('C'.$rowcount1,$teamLeaderName); // company name
 	$objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowcount1,$row[3]); // date
 	$objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowcount1,$row[4]); // time
-	$objPHPExcel->getActiveSheet()->SetCellValue('F'.$rowcount1,$row[31]); // created by
+	$objPHPExcel->getActiveSheet()->SetCellValue('F'.$rowcount1,$row[32]); // created by
 	$objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowcount1,$row[6]); // created on
-	$objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowcount1,$row[32]); // updated by
+	$objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowcount1,$row[33]); // updated by
 	$objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowcount1,$row[5]); // updated on
-	$objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowcount1,$row[28]); // text note
+	$objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowcount1,$row[29]); // text note
 	$objPHPExcel->getActiveSheet()->SetCellValue('K'.$rowcount1,$row[7]); // Question 1
 	$objPHPExcel->getActiveSheet()->SetCellValue('L'.$rowcount1,$row[8]); // Question 2
 	$objPHPExcel->getActiveSheet()->SetCellValue('M'.$rowcount1,$row[9]); // Question 3
@@ -174,21 +175,22 @@ while($row=pg_fetch_row($export))
 	$objPHPExcel->getActiveSheet()->SetCellValue('AB'.$rowcount1,$row[24]); // Question 18
 	$objPHPExcel->getActiveSheet()->SetCellValue('AC'.$rowcount1,$row[25]); // Question 19
 	$objPHPExcel->getActiveSheet()->SetCellValue('AD'.$rowcount1,$row[26]); // Question 20
+	$objPHPExcel->getActiveSheet()->SetCellValue('AE'.$rowcount1,$row[27]); // Question 20
 	// moving pointer row wise.
 	$rowcount1++;
 }
 $rowcount1 = $rowcount1-1;
 // applying formating to written columns
-$objPHPExcel->getActiveSheet()->getStyle('A6:AD6')->applyFromArray($BStyle);
-$objPHPExcel->getActiveSheet()->getStyle('A7:AD7')->applyFromArray($BStyle);
-$objPHPExcel->getActiveSheet()->getStyle('A6:AD6')->applyFromArray($BiStyle);
-$objPHPExcel->getActiveSheet()->getStyle('A7:AD7')->applyFromArray($BiStyle);
+$objPHPExcel->getActiveSheet()->getStyle('A6:AE6')->applyFromArray($BStyle);
+$objPHPExcel->getActiveSheet()->getStyle('A7:AE7')->applyFromArray($BStyle);
+$objPHPExcel->getActiveSheet()->getStyle('A6:AE6')->applyFromArray($BiStyle);
+$objPHPExcel->getActiveSheet()->getStyle('A7:AE7')->applyFromArray($BiStyle);
 //===============================================================================================================//
 
 ob_end_clean();
 ob_start();
 header('Content-Type: application/octet-stream');
-header("Content-Disposition: attachment; filename=Safety Leadership Profile.xls");
+header("Content-Disposition: attachment; filename=Safety Leadership Practices Assessment.xls");
 header("Pragma: no-cache");
 header("Expires: 0");
 

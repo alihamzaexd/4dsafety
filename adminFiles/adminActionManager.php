@@ -2081,6 +2081,30 @@ EOF;
 		}else{
 		    $connectionErrorFlag = 1;
 		}
+		// ======= STJ reports retrival =======//
+		$sqlSslrReports =<<<EOF
+        SELECT stj_id,stj.date,t.team_name,comp.company_name,p.person_firstname,p.person_lastname
+	    FROM COMPANY as comp, TEAM as t, PERSON as p,STJ
+	    WHERE stj.team_id = t.team_id AND comp.company_id = stj.company_id 
+	        AND p.person_username = stj.created_by;
+EOF;
+        $reportName = "Stop the Job Meeting Review";
+		$retSslrReports = pg_query($conn, $sqlSslrReports);
+		if($retSslrReports){
+		  while($row = pg_fetch_row($retSslrReports)) 
+		    {
+			  echo "<tr id={$row[0]} value={$row[0]}> <td>{$reportName}</td> <td>{$row[1]}</td> <td>{$row[4]} {$row[5]}</td> <td></td> <td>{$row[2]}</td> <td>{$row[3]}</td> 
+			  <td></td><td></td><td></td><td></td>			  
+			  <td>
+				<button style='margin:2px;' class='btn btn-xs btn-success' onClick='showPDFSTJ({$row[0]})' > Show PDF </button>
+				<button style='margin:2px;' class='btn btn-xs btn-warning' onClick='exportPDFSTJ({$row[0]})' > Export PDF </button>
+				<button style='margin:2px;' class='btn btn-xs btn-info' onClick='exportCSVSTJ({$row[0]})' > Export CSV </button>
+              </td>
+			  </tr>";
+		    }
+		}else{
+		    $connectionErrorFlag = 1;
+		}
 		// ======= SLP reports retrival =======//
 		$sqlSlpReports =<<<EOF
         SELECT slp_id,slp.date,t.team_name,comp.company_name,p.person_firstname,p.person_lastname,slp.person_id,slp.team_id
@@ -2112,6 +2136,43 @@ EOF;
 				<button style='margin:2px;' class='btn btn-xs btn-success' onClick='showPDFSLP({$row[0]})' > Show PDF </button>
 				<button style='margin:2px;' class='btn btn-xs btn-warning' onClick='exportPDFSLP({$row[0]})' > Export PDF </button>
 				<button style='margin:2px;' class='btn btn-xs btn-info' onClick='exportCSVSLP({$row[0]})' > Export CSV </button>
+              </td>
+			  </tr>";
+		    }
+		}else{
+		    $connectionErrorFlag = 1;
+		}
+	    // ========= SLPA reports retrival ========//
+		$sqlSlpaReports =<<<EOF
+        SELECT slpa_id,slpa.date,t.team_name,comp.company_name,p.person_firstname,p.person_lastname,slpa.person_id,slpa.team_id
+	    FROM COMPANY as comp, TEAM as t, PERSON as p,SLPA as slpa
+	    WHERE slpa.team_id = t.team_id AND comp.company_id = slpa.company_id 
+	          AND p.person_username = slpa.created_by;
+EOF;
+        $reportName = "Safety Leadership Practices Assessment";
+		$retSlpaReports = pg_query($conn, $sqlSlpaReports);
+		if($retSlpaReports){
+		  while($row = pg_fetch_row($retSlpaReports)) 
+		    {
+			  echo "<tr id={$row[0]} value={$row[0]}> <td>{$reportName}</td> <td>{$row[1]}</td> <td>{$row[4]} {$row[5]}</td>";
+			  // team leader name retrival
+			  $teamLeaderSql = "SELECT person_firstname,person_lastname from PERSON WHERE person_id = '{$row[6]}';";
+			  $retTeamLeader = pg_query($conn, $teamLeaderSql);
+			  $leaderRow = pg_fetch_row($retTeamLeader);
+			  
+			  $sqlCompanyInfo = "SELECT div.division_name,dept.department_name,sdept.subdepartment_name,loc.location_name
+			  FROM DEPARTMENT as dept,SUB_DEPARTMENT as sdept,LOCATION as loc, DIVISION as div,COMPANY_OBJECT as compObj
+			  WHERE dept.department_id = compObj.department_id AND sdept.subdepartment_id = compObj.subdepartment_id AND div.division_id = compObj.division_id AND loc.location_id = compObj.location_id 
+			  AND compObj.companyobj_id IN (SELECT companyobj_id FROM TEAM where team_id = '{$row[7]}')";
+			   $retCompanyInfo = pg_query($conn, $sqlCompanyInfo);
+			  $companyInfoRow = pg_fetch_row($retCompanyInfo);
+			  
+			  echo "<td>{$leaderRow[0]} {$leaderRow[1]}</td> <td>{$row[2]}</td> <td>{$row[3]}</td> 
+			  <td>{$companyInfoRow[0]}</td><td>{$companyInfoRow[1]}</td><td>{$companyInfoRow[2]}</td><td>{$companyInfoRow[3]}</td>			  
+			  <td>
+				<button style='margin:2px;' class='btn btn-xs btn-success' onClick='showPDFSLPA({$row[0]})' > Show PDF </button>
+				<button style='margin:2px;' class='btn btn-xs btn-warning' onClick='exportPDFSLPA({$row[0]})' > Export PDF </button>
+				<button style='margin:2px;' class='btn btn-xs btn-info' onClick='exportCSVSLPA({$row[0]})' > Export CSV </button>
               </td>
 			  </tr>";
 		    }
