@@ -28,6 +28,16 @@ $adminActionManager = new AdminActionManager();
 	    var url = "adminFiles/reports/excelExportScriptSTJ.php?id="+value;
 	    window.open(url,"_self");
     }	
+	function exportCSVEARSON(value)  
+	{ 
+	    var url = "adminFiles/reports/excelExportScriptEARSON.php?id="+value;
+	    window.open(url,"_self");
+    }
+    function exportCSVSLPSA(value)  
+	{ 
+	    var url = "adminFiles/reports/excelExportScriptSLPSA.php?id="+value;
+	    window.open(url,"_self");
+    }	
 </script>
 
 <style>

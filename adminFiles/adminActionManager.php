@@ -2081,6 +2081,29 @@ EOF;
 		}else{
 		    $connectionErrorFlag = 1;
 		}
+		// ======= SLPSA reports retrival =======//
+		$sqlSslrReports =<<<EOF
+        SELECT slpsa_id,slpsa.date,t.team_name,p.person_firstname,p.person_lastname
+	    FROM TEAM as t, PERSON as p,SLPSA
+	    WHERE slpsa.team_id = t.team_id AND p.person_username = slpsa.created_by;
+EOF;
+        $reportName = "Safety Leadership Practices Self-Assessment";
+		$retSslrReports = pg_query($conn, $sqlSslrReports);
+		if($retSslrReports){
+		  while($row = pg_fetch_row($retSslrReports)) 
+		    {
+			  echo "<tr id={$row[0]} value={$row[0]}> <td>{$reportName}</td> <td>{$row[1]}</td> <td>{$row[3]} {$row[4]}</td> <td></td> <td>{$row[2]}</td> <td></td> 
+			  <td></td><td></td><td></td><td></td>			  
+			  <td>
+				<button style='margin:2px;' class='btn btn-xs btn-success' onClick='showPDFSLPSA({$row[0]})' > Show PDF </button>
+				<button style='margin:2px;' class='btn btn-xs btn-warning' onClick='exportPDFSLPSA({$row[0]})' > Export PDF </button>
+				<button style='margin:2px;' class='btn btn-xs btn-info' onClick='exportCSVSLPSA({$row[0]})' > Export CSV </button>
+              </td>
+			  </tr>";
+		    }
+		}else{
+		    $connectionErrorFlag = 1;
+		}
 		// ======= STJ reports retrival =======//
 		$sqlSslrReports =<<<EOF
         SELECT stj_id,stj.date,t.team_name,comp.company_name,p.person_firstname,p.person_lastname
@@ -2099,6 +2122,30 @@ EOF;
 				<button style='margin:2px;' class='btn btn-xs btn-success' onClick='showPDFSTJ({$row[0]})' > Show PDF </button>
 				<button style='margin:2px;' class='btn btn-xs btn-warning' onClick='exportPDFSTJ({$row[0]})' > Export PDF </button>
 				<button style='margin:2px;' class='btn btn-xs btn-info' onClick='exportCSVSTJ({$row[0]})' > Export CSV </button>
+              </td>
+			  </tr>";
+		    }
+		}else{
+		    $connectionErrorFlag = 1;
+		}
+		// ======= EARSON reports retrival =======//
+		$sqlSslrReports =<<<EOF
+        SELECT earson_id,earson.date,t.team_name,comp.company_name,p.person_firstname,p.person_lastname
+	    FROM COMPANY as comp, TEAM as t, PERSON as p,EARSON
+	    WHERE earson.team_id = t.team_id AND comp.company_id = earson.company_id 
+	        AND p.person_username = earson.created_by;
+EOF;
+        $reportName = "EARSON 4 Safety Review";
+		$retSslrReports = pg_query($conn, $sqlSslrReports);
+		if($retSslrReports){
+		  while($row = pg_fetch_row($retSslrReports)) 
+		    {
+			  echo "<tr id={$row[0]} value={$row[0]}> <td>{$reportName}</td> <td>{$row[1]}</td> <td>{$row[4]} {$row[5]}</td> <td></td> <td>{$row[2]}</td> <td>{$row[3]}</td> 
+			  <td></td><td></td><td></td><td></td>			  
+			  <td>
+				<button style='margin:2px;' class='btn btn-xs btn-success' onClick='showPDFEARSON({$row[0]})' > Show PDF </button>
+				<button style='margin:2px;' class='btn btn-xs btn-warning' onClick='exportPDFEARSON({$row[0]})' > Export PDF </button>
+				<button style='margin:2px;' class='btn btn-xs btn-info' onClick='exportCSVEARSON({$row[0]})' > Export CSV </button>
               </td>
 			  </tr>";
 		    }
