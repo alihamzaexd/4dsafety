@@ -1281,7 +1281,7 @@ EOF;
 			  if($row1[0]){echo $row1[0];}
 			  echo "</td><td>{$row[4]}</td><td>{$row[5]}</td><td>{$row[6]}</td><td>{$row[7]}</td><td>{$row[8]}</td> 
 			  <td>
-				<a onClick='getSpecificUser({$row[0]})'>edit</a>
+				
 				<button class='btn btn-xs btn-danger' onClick='removeUser({$row[0]})' > delete </button>
               </td>
 			  </tr>";

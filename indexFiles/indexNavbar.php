@@ -2,7 +2,8 @@
   <div class="container-fluid">
     <div class="navbar-header">
         <a class="navbar-brand" onclick="loadDefautContent()">4DSafety</a>
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=
+"#bs-example-navbar-collapse-1" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -26,9 +27,6 @@
 					  { echo "loadLoginForm()"; }
 			  ?>
 			  ">Login</a>
-          </li>
-		      <li>
-              <a onclick="loadSignupForm()">Sign Up</a>
           </li>
       </ul>
 

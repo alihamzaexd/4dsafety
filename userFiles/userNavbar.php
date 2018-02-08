@@ -55,7 +55,8 @@ function loadUserDefault(){
 						echo '<li><a onclick="loadEarsForm()">EARS ON</a></li>';
 						echo '<li><a onclick="loadStjForm()">Stop The Job</a></li>';
 					}else{
-						echo '<li><a onclick="loadSlpsaForm()">Safety Leadership Practices Self-Assesment</a></li>';
+					   // echo '<li><a onclick="loadSlpsaForm()">Safety Leadership Practices Self-Assesment</a></li>';
+						echo '<li><a style="color:red;">Nothing to Show</a></li>';
 					}
 				?>
             </ul>

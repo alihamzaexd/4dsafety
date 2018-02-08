@@ -11,7 +11,3 @@ function loadDefautContent(){
 function loadLoginForm(){
     $("#pageContent").load("indexFiles/indexLoginForm.html"); 
 }
-
-function loadSignupForm(){
-    $("#pageContent").load("indexFiles/indexSignupForm.html"); 
-}

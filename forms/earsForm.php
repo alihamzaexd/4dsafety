@@ -105,6 +105,17 @@ EOF;
 		              companySelect.disabled = true;
 		</script>";
 	    }
+		
+	if(isset($_SESSION['employeeId']))
+	{
+        $sqlPersonStatement = "SELECT p.person_commitment FROM Person as p, Employee as emp 
+	    WHERE p.person_id = emp.person_id AND emp.employee_id = '{$employeeId}'";
+	    $retPersonStatement = pg_query($conn, $sqlPersonStatement);
+	    if($retPersonStatement){
+	        $row = pg_fetch_row($retPersonStatement);
+            $_SESSION['commitmentStatement'] = $row[0];
+        }
+	}	
 
 ?>
 <div class="container">
@@ -116,7 +127,9 @@ EOF;
 			<div class="row">
 				<div class="col-md-3">
 				  <div class="panel panel-default" style="padding:10%; background-color:#EAECEE;">
-				  <img id ="userProfileImage" src="asset/image/defaultUserProfile.png" />
+				    <div align="center">
+				      <img id ="userProfileImage" src="asset/image/defaultUserProfile.png" />
+                    </div>	
 				  <strong> 
 				      <h3 align="center">
 				        <?php echo $_SESSION['firstName']; echo " ".$_SESSION['lastName'];?>
@@ -127,6 +140,7 @@ EOF;
 					    <?php echo $_SESSION['role']; ?>
 					  </h4>
 					</strong>
+					<?php if(isset($_SESSION['commitmentStatement'])){echo "<strong>Safety 4 Me Means:</strong> \"".$_SESSION['commitmentStatement']."\" <br>";}  ?>
 					<br>
 					<div  style="padding:10px; border-top: 2px solid #ccc;">
 					<!-- div for just a horizontal line -->
